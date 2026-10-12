@@ -1,4 +1,4 @@
-# core/storage.py
+# src/storage.py
 from __future__ import annotations
 
 import filecmp
@@ -10,8 +10,8 @@ import time
 import uuid
 from typing import Iterable
 
-from core import applog
-from core.models import ClipItem, ClipType
+from src import applog
+from src.models import ClipItem, ClipType
 
 
 # ------------------------- 默认配置 -------------------------
@@ -24,7 +24,7 @@ LOCK_FILE_NAME = ".lock"                # 存储目录里的跨进程互斥文�
 LOCK_TIMEOUT_S = 3.0                    # 等锁最长时间；超时说明确实有别的实例在跑
 
 # 跨进程文件锁：Windows 用 msvcrt，其它平台用 fcntl。
-# 这个锁是单实例保护的兜底——接口调用（core/single_instance.py）挡住的是
+# 这个锁是单实例保护的兜底——接口调用（src/single_instance.py）挡住的是
 # “正常双击两次”，这里挡住的是“绕过接口直接起第二份进程”，
 # 保证同一个 history.db 永远只有一个写入者。
 try:
@@ -107,7 +107,7 @@ class Storage:
         except OSError as e:
             # 连锁文件都建不出来（目录只读 / 被安全软件拦住）：不能把程序直接弄崩，
             # 退化成「没有存储层保护」继续跑，但日志里必须留痕
-            # （正常路径上还有单实例锁兜着，见 core/single_instance.py）。
+            # （正常路径上还有单实例锁兜着，见 src/single_instance.py）。
             applog.get("storage").warning(
                 "无法打开存储锁文件 %s：%s（本次启动没有存储层互斥保护）",
                 self.lock_path, e)

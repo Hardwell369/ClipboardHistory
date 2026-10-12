@@ -1,4 +1,4 @@
-# core/clipboard_io.py
+# src/clipboard_io.py
 from __future__ import annotations
 
 import json
@@ -13,7 +13,7 @@ import win32gui
 from PySide6.QtGui import QClipboard, QImage
 from PySide6.QtWidgets import QApplication
 
-from core.models import ClipItem, ClipType
+from src.models import ClipItem, ClipType
 
 
 # ------------------------- 常量 -------------------------

@@ -1,4 +1,4 @@
-# core/capture.py
+# src/capture.py
 """
 剪贴板采集：读剪贴板 -> 过滤 -> 入库。
 
@@ -11,14 +11,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable
 
-from core.clipboard_io import (
+from src.clipboard_io import (
     clipboard_formats,
     get_foreground_window_title,
     read_clipboard,
     save_image_bytes,
     sensitive_reason,
 )
-from core.models import ClipItem, ClipType
+from src.models import ClipItem, ClipType
 
 # 未记录的原因码（会写进 app.log）
 REASON_OK = "ok"                  # 已记录
@@ -151,8 +151,8 @@ def capture_once(
 if __name__ == "__main__":
     import tempfile
 
-    from core.models import ClipType as _T
-    from core.storage import Storage
+    from src.models import ClipType as _T
+    from src.storage import Storage
 
     tmp = tempfile.mkdtemp(prefix="clip_capture_")
     st = Storage(tmp, lock=False)

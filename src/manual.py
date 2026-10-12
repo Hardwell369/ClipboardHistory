@@ -1,4 +1,4 @@
-# core/manual.py
+# src/manual.py
 """
 用户手册（docs/用户手册.txt）的定位与打开。
 
@@ -18,8 +18,8 @@ import os
 import subprocess
 import sys
 
-from core import applog
-from core.paths import app_root, resource
+from src import applog
+from src.paths import app_root, resource
 
 MANUAL_FILE_NAME = "用户手册.txt"
 MANUAL_SUBDIR = "docs"

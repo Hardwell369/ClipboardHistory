@@ -1,9 +1,9 @@
 # build/make_version_info.py
 """
-由 core/version.py 生成 PyInstaller 用的版本信息文件（Windows exe 的
+由 src/version.py 生成 PyInstaller 用的版本信息文件（Windows exe 的
 「属性 -> 详细信息」里那几个字段：文件版本、产品版本、说明、版权）。
 
-为什么需要它：版本号只在 core/version.py 里写一次，打包时不该再手抄一遍，
+为什么需要它：版本号只在 src/version.py 里写一次，打包时不该再手抄一遍，
 抄漏了就会出现「关于框写 1.0.0、exe 属性写 0.9」这种对不上的情况。
 
 用法（在项目根目录）：
@@ -22,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from core.version import (          # noqa: E402
+from src.version import (          # noqa: E402
     APP_NAME, APP_NAME_EN, COPYRIGHT, DESCRIPTION, __version__, version_tuple,
 )
 
@@ -30,7 +30,7 @@ from core.version import (          # noqa: E402
 def build_content(role: str = "") -> str:
     """
     role 用来区分「主程序 / 安装程序 / 卸载程序」，只影响 exe 属性里的
-    说明和原始文件名，版本号来源始终是 core/version.py。
+    说明和原始文件名，版本号来源始终是 src/version.py。
     """
     major, minor, patch, build = version_tuple()
     version_str = ".".join(str(n) for n in (major, minor, patch, build))
@@ -46,7 +46,7 @@ def build_content(role: str = "") -> str:
         original = f"{APP_NAME_EN}.exe"
 
     return f"""# 由 build/make_version_info.py 自动生成，不要手改。
-# 版本号来源：core/version.py 的 __version__ = "{__version__}"
+# 版本号来源：src/version.py 的 __version__ = "{__version__}"
 VSVersionInfo(
   ffi=FixedFileInfo(
     filevers=({major}, {minor}, {patch}, {build}),
@@ -102,7 +102,7 @@ def main(role: str = "") -> int:
         print("校验通过：FileVersion =", fields.get("FileVersion"),
               "| ProductName =", fields.get("ProductName"))
         if fields.get("FileVersion") != ".".join(str(n) for n in version_tuple()):
-            print("版本号与 core/version.py 不一致！")
+            print("版本号与 src/version.py 不一致！")
             return 1
     except ImportError:
         print("（没装 PyInstaller，跳过结构校验）")

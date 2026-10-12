@@ -8,7 +8,7 @@
 3. 设置       —— 程序「设置」里的全部选项（预填默认值，可一键恢复默认）
 4. 安装       —— 进度、结果、打开安装目录
 
-真正的安装动作都在 core/installer.py 里（不依赖 Qt，可单独测试），
+真正的安装动作都在 src/installer.py 里（不依赖 Qt，可单独测试），
 这里只负责收集选项、显示进度、把失败原因原样摆给用户看。
 """
 from __future__ import annotations
@@ -23,14 +23,14 @@ from PySide6.QtWidgets import (
     QWizard, QWizardPage,
 )
 
-from core import applog
-from core.installer import (
+from src import applog
+from src.installer import (
     DATA_SUBDIR, InstallOptions, data_dir_for_install, default_install_dir,
     existing_install, install, is_installed, launch_installed, payload_dir,
 )
-from core.paths import resource
-from core.settings import DEFAULT_SETTINGS, Settings, default_settings_path
-from core.version import APP_NAME, AUTHOR, AUTHOR_EMAIL, __version__
+from src.paths import resource
+from src.settings import DEFAULT_SETTINGS, Settings, default_settings_path
+from src.version import APP_NAME, AUTHOR, AUTHOR_EMAIL, __version__
 from ui.settings_form import SettingsForm
 
 PAGE_WELCOME = 0
@@ -68,7 +68,7 @@ class WelcomePage(QWizardPage):
 
     @staticmethod
     def _describe() -> str:
-        from core.autostart import is_elevated
+        from src.autostart import is_elevated
 
         lines = [
             f"版本：{__version__}        作者：{AUTHOR}",

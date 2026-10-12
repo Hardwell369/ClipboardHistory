@@ -1,4 +1,4 @@
-# core/hotkey.py
+# src/hotkey.py
 from __future__ import annotations
 
 from PySide6.QtCore import QObject, Signal

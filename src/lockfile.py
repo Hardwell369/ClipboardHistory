@@ -1,4 +1,4 @@
-# core/lockfile.py
+# src/lockfile.py
 """
 单实例所需的「文件锁 + 命令文件」底层实现（**不依赖 Qt**）。
 
@@ -7,7 +7,7 @@
     卸载前得知道「程序是不是正在运行」，正在运行就先请它退出，
     否则安装目录里的 exe 被占用、history.db 也写不进去。
     卸载器是个独立的 exe，不想为了这点功能把 PySide6 也打进去，
-    所以这些只用标准库的代码放在这里，Qt 那一层留在 core/single_instance.py。
+    所以这些只用标准库的代码放在这里，Qt 那一层留在 src/single_instance.py。
 
 约定：
     %APPDATA%\\ClipboardHistory\\app.lock   第一个进程独占锁住它

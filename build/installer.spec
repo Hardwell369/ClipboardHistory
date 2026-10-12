@@ -14,7 +14,7 @@
     主程序的整个目录（dist/ClipboardHistory，含 _internal 和 uninstaller.exe）
     会被塞进这个 exe 的 payload/ 目录里；运行时 PyInstaller 先解包到临时目录，
     安装向导再从 _MEIPASS/payload 把文件复制到用户选的安装目录
-    （见 core/installer.py）。payload 里没有卸载器时，这里会自动把
+    （见 src/installer.py）。payload 里没有卸载器时，这里会自动把
     dist/uninstaller.exe 补进 payload/（先单独打 uninstaller.spec 才有）。
 
 清单同样要求管理员权限（uac_admin=True）：

@@ -1,11 +1,11 @@
-# core/single_instance.py
+# src/single_instance.py
 """
 单实例保护（Qt 层）。
 
 双击两次 exe（或快捷键 + 双击）时，第二个进程不该再起一份：
 否则会同时打开同一个 history.db、注册同一套全局快捷键、多挂一条剪贴板监听链。
 
-实现方式：**进程级文件锁 + 命令文件**（底层在 core/lockfile.py，不依赖 Qt，
+实现方式：**进程级文件锁 + 命令文件**（底层在 src/lockfile.py，不依赖 Qt，
 卸载器也复用同一份）：
     %APPDATA%\\ClipboardHistory\\app.lock     第一个进程独占锁住它
     %APPDATA%\\ClipboardHistory\\app.cmd      其它进程往里写 "show" / "quit"
@@ -21,8 +21,8 @@ from __future__ import annotations
 
 from PySide6.QtCore import QObject, QTimer, Signal
 
-from core import applog
-from core.lockfile import (                 # noqa: F401 - 兼容旧的导入路径
+from src import applog
+from src.lockfile import (                 # noqa: F401 - 兼容旧的导入路径
     CMD_FILE_NAME, CMD_QUIT, CMD_SHOW, LOCK_DIR_NAME, LOCK_FILE_NAME,
     LOCK_TIMEOUT_S, RETRY_INTERVAL_S, base_dir, cmd_path, is_running, lock_path,
     notify_existing_instance, read_command, release, remove_files,

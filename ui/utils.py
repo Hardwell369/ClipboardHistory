@@ -7,7 +7,7 @@ from PySide6.QtCore import QRect
 from PySide6.QtGui import QGuiApplication, QScreen
 from PySide6.QtWidgets import QWidget
 
-from core.models import ClipType
+from src.models import ClipType
 
 
 # 各类型的中文名（主窗口、历史窗口共用）

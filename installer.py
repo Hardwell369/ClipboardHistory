@@ -2,7 +2,7 @@
 """
 安装向导（图形界面）。
 
-三种入口，都走 core/installer.py 里同一套安装逻辑：
+三种入口，都走 src/installer.py 里同一套安装逻辑：
 
     ClipboardHistory-Setup.exe                        图形向导（推荐）
     ClipboardHistory-Setup.exe --install-silent ...   静默安装（批量部署）
@@ -20,7 +20,7 @@
     --auto-start=1|0                   开机自启（默认 0）
     --launch=1|0                       安装完成后启动（默认 0）
     --max-items=500 --max-size-mb=200 ... 其余设置项同名覆盖，见
-                                       core/settings.py 的 DEFAULT_SETTINGS
+                                       src/settings.py 的 DEFAULT_SETTINGS
 
 数据目录默认跟着安装目录走：装到 D:\\Apps\\ClipboardHistory，数据就在
 D:\\Apps\\ClipboardHistory\\data（安装时自动创建），--data-dir 可以改掉它。
@@ -30,10 +30,10 @@ from __future__ import annotations
 import os
 import sys
 
-from core import applog
-from core.installer import install, launch_installed, parse_silent_args
-from core.paths import resource
-from core.version import APP_NAME, __version__
+from src import applog
+from src.installer import install, launch_installed, parse_silent_args
+from src.paths import resource
+from src.version import APP_NAME, __version__
 
 QSS_PATH = resource("ui", "style.qss")
 

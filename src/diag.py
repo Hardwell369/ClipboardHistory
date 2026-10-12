@@ -1,4 +1,4 @@
-# core/diag.py
+# src/diag.py
 """
 自检模式：ClipboardHistory.exe --diag
 
@@ -20,8 +20,8 @@ import subprocess
 import sys
 import time
 
-from core import applog
-from core.paths import app_root, resource
+from src import applog
+from src.paths import app_root, resource
 
 REPORT_NAME = "ClipboardHistory-diag.txt"
 _PROBE_TIMEOUT_S = 3.0
@@ -37,7 +37,7 @@ def _line(label: str, value) -> str:
 def _is_elevated() -> str:
     """当前进程是否以管理员身份运行（打包版清单要求提权，这里是核对用）"""
     try:
-        from core.autostart import is_elevated
+        from src.autostart import is_elevated
         if is_elevated():
             return "是（已提权）"
         return "否（普通权限）—— 打包版清单要求管理员，出现“否”说明被绕过了"
@@ -80,7 +80,7 @@ def _dir_info(path: str) -> str:
 # 报告
 # ---------------------------------------------------------
 def build_report() -> str:
-    from core.version import APP_NAME, __version__
+    from src.version import APP_NAME, __version__
 
     frozen = bool(getattr(sys, "frozen", False))
     lines: list[str] = [
@@ -109,7 +109,7 @@ def build_report() -> str:
 
     lines += ["", "---- 配置 ----"]
     try:
-        from core.settings import Settings, default_settings_path
+        from src.settings import Settings, default_settings_path
         sp = default_settings_path()
         lines.append(_line("settings.json", sp))
         lines.append(_line("是否可写", _probe_write(sp)))
@@ -136,7 +136,7 @@ def build_report() -> str:
 
     lines += ["", "---- 单实例锁 ----"]
     try:
-        from core.single_instance import lock_path
+        from src.single_instance import lock_path
         lp = lock_path()
         lines.append(_line("app.lock", lp))
         lines.append(_line("状态", _dir_info(lp)))
@@ -146,11 +146,11 @@ def build_report() -> str:
 
     lines += ["", "---- 开机自启 ----"]
     try:
-        from core.autostart import status as autostart_status, task_exists
+        from src.autostart import status as autostart_status, task_exists
         lines.append(autostart_status())
         lines.append(_line("是否管理员运行", _is_elevated()))
         if task_exists():
-            from core.autostart import describe_task
+            from src.autostart import describe_task
             lines.append(_line("任务详情", describe_task() or "(查不到)"))
     except Exception as e:                      # noqa: BLE001
         lines.append(_line("检查失败", f"{type(e).__name__}: {e}"))

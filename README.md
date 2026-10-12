@@ -88,7 +88,7 @@ pyinstaller build/installer.spec --clean --noconfirm
   `dist/ClipboardHistory-Setup.exe`              图形安装程序，内嵌主程序目录
   ----------------------------------------------------------------------------------
 
-> **注意：** 修改 `core/version.py` 中的版本号，或修改打包配置中的 UAC
+> **注意：** 修改 `src/version.py` 中的版本号，或修改打包配置中的 UAC
 > 权限选项后，请使用 `--clean` 重新构建，避免 PyInstaller
 > 缓存导致修改未生效。
 
@@ -98,7 +98,7 @@ pyinstaller build/installer.spec --clean --noconfirm
 -   `build/make_icon.py` 根据 SVG 生成真正的多尺寸 Windows 图标
     `assets/icon.ico`。
 -   版本号、作者信息等元数据集中维护在
-    `core/version.py`，打包时会生成可写入 EXE 属性的版本信息。
+    `src/version.py`，打包时会生成可写入 EXE 属性的版本信息。
 
 ## 安装与卸载
 
@@ -192,19 +192,19 @@ clipboard_app/
 │   └── file_icons/           # 文件类型图标
 ├── docs/
 │   └── 用户手册.txt
-├── core/                     # 存储、采集、日志、路径、安装/卸载等核心逻辑
+├── src/                     # 存储、采集、日志、路径、安装/卸载等核心逻辑
 ├── ui/                       # 主窗口、历史窗口、设置、托盘和对话框
 └── build/                    # PyInstaller 配置与构建脚本
 ```
 
 核心模块包括：
 
--   `core/storage.py`：SQLite、文件内容存储、去重与跨进程锁。
--   `core/clipboard_io.py`、`core/capture.py`：读取剪贴板、过滤内容并保存记录。
--   `core/clipboard_listener.py`：Windows 剪贴板监听。
--   `core/lockfile.py`、`core/single_instance.py`：单实例协调与进程间命令。
--   `core/settings.py`：JSON 配置。
--   `core/installer.py`、`core/uninstall.py`：安装和卸载逻辑。
+-   `src/storage.py`：SQLite、文件内容存储、去重与跨进程锁。
+-   `src/clipboard_io.py`、`src/capture.py`：读取剪贴板、过滤内容并保存记录。
+-   `src/clipboard_listener.py`：Windows 剪贴板监听。
+-   `src/lockfile.py`、`src/single_instance.py`：单实例协调与进程间命令。
+-   `src/settings.py`：JSON 配置。
+-   `src/installer.py`、`src/uninstall.py`：安装和卸载逻辑。
 -   `ui/`：用户界面与交互组件。
 -   `build/`：图标、版本信息及 PyInstaller 构建配置。
 

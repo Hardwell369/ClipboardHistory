@@ -1,4 +1,4 @@
-# core/paths.py
+# src/paths.py
 """
 资源路径。
 

@@ -22,9 +22,9 @@ from PySide6.QtWidgets import (
     QLineEdit, QPushButton, QSpinBox, QWidget,
 )
 
-from core.settings import DEFAULT_SETTINGS
+from src.settings import DEFAULT_SETTINGS
 
-# 本表单负责的配置键（与 core/settings.py 的 DEFAULT_SETTINGS 一一对应）
+# 本表单负责的配置键（与 src/settings.py 的 DEFAULT_SETTINGS 一一对应）
 FORM_KEYS = (
     "storage_dir",
     "max_size_mb",
@@ -165,14 +165,14 @@ class SettingsForm(QWidget):
         self._auto_storage = auto
 
     def _data_dir_for(self, install_dir: str) -> str:
-        from core.installer import DATA_SUBDIR
+        from src.installer import DATA_SUBDIR
 
         return os.path.join(str(install_dir).strip(), DATA_SUBDIR) if str(
             install_dir).strip() else ""
 
     def _looks_custom(self, path: str) -> bool:
         """这个路径像不像「用户自己指定的」"""
-        from core.installer import DATA_SUBDIR
+        from src.installer import DATA_SUBDIR
 
         norm = os.path.normpath(path)
         if os.path.basename(norm).lower() != DATA_SUBDIR:
@@ -211,7 +211,7 @@ class SettingsForm(QWidget):
             self._as_sequence(value("next_item_hotkey")))
 
     def load_settings(self, settings) -> None:
-        """从 core.settings.Settings 载入"""
+        """从 src.settings.Settings 载入"""
         self.load_dict(settings.as_dict())
 
     def reset_defaults(self) -> None:
@@ -234,7 +234,7 @@ class SettingsForm(QWidget):
     # 取值 / 校验
     # ---------------------------------------------------------
     def values(self) -> dict[str, Any]:
-        """表单里所有配置项（键名与 core/settings.py 一致）"""
+        """表单里所有配置项（键名与 src/settings.py 一致）"""
         return {
             "storage_dir": self.edit_path.text().strip(),
             "max_size_mb": self.spin_max_size.value(),

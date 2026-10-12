@@ -1,4 +1,4 @@
-# core/uninstall.py
+# src/uninstall.py
 """
 卸载支持。
 
@@ -14,7 +14,7 @@
 副本等本进程（以及正在运行的主程序）退出后，再删安装目录、快捷方式、
 注册表项和用户选择要删的数据，最后删掉自己的临时文件。
 
-删哪些数据由 core/data_clean.py 决定：文本、图片、文件三类分开，
+删哪些数据由 src/data_clean.py 决定：文本、图片、文件三类分开，
 用户勾哪类删哪类；没勾的绝不动（配置/日志只在数据清空后才一起删）。
 
 安装目录里的 install.json 由安装器写入；卸载时按它找到安装目录、数据目录、
@@ -33,13 +33,13 @@ import tempfile
 import time
 import winreg
 
-from core import applog, lockfile
-from core.autostart import RUN_VALUE, TASK_NAME
-from core.data_clean import (
+from src import applog, lockfile
+from src.autostart import RUN_VALUE, TASK_NAME
+from src.data_clean import (
     CATEGORY_KEYS, candidate_dirs, delete_data, format_size, inspect,
     remove_session_files, summarize,
 )
-from core.version import APP_NAME, APP_NAME_EN
+from src.version import APP_NAME, APP_NAME_EN
 
 INSTALL_INFO_FILE = "install.json"
 UNINSTALL_KEY = rf"Software\Microsoft\Windows\CurrentVersion\Uninstall\{APP_NAME_EN}"
@@ -203,7 +203,7 @@ def _remove_auto_start(args: dict, report: dict, say) -> None:
             or load_install_info(args.get("install-dir", "")).get("auto_start_task")
             or TASK_NAME)
     try:
-        from core.autostart import delete_task
+        from src.autostart import delete_task
 
         ok, detail = delete_task(task)
         say(f"开机自启计划任务 {task}：{'已删除' if ok else '未删除'}（{detail}）")
@@ -216,7 +216,7 @@ def _remove_auto_start(args: dict, report: dict, say) -> None:
 def _default_links() -> tuple[str, str]:
     """按默认布局猜快捷方式位置（install.json 缺失时的兜底）"""
     try:
-        from core.shortcut import default_desktop_dir, default_start_menu_dir
+        from src.shortcut import default_desktop_dir, default_start_menu_dir
 
         desktop = os.path.join(default_desktop_dir(), f"{APP_NAME}.lnk")
         start_menu = os.path.join(default_start_menu_dir(), f"{APP_NAME}.lnk")
@@ -270,7 +270,7 @@ def _close_running_app(args: dict, report: dict, say) -> None:
     """
     卸载前把正在运行的程序关掉。
 
-    优先「优雅退出」：往命令文件里写 quit（core/single_instance.py 的
+    优先「优雅退出」：往命令文件里写 quit（src/single_instance.py 的
     quit_requested 会走正常的释放流程）；叫不动才 taskkill。
     程序不关掉的话：安装目录里的 exe 被占用、history.db 也写不进去。
     """

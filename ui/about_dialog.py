@@ -2,8 +2,8 @@
 """
 关于对话框。
 
-内容全部来自 core/version.py（唯一版本号来源），
-所以发版时只需要改 core/version.py 里的 __version__。
+内容全部来自 src/version.py（唯一版本号来源），
+所以发版时只需要改 src/version.py 里的 __version__。
 """
 from __future__ import annotations
 
@@ -16,9 +16,9 @@ from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QWidget,
 )
 
-from core import applog
-from core.paths import resource
-from core.version import (
+from src import applog
+from src.paths import resource
+from src.version import (
     APP_NAME, APP_NAME_EN, AUTHOR, AUTHOR_EMAIL, COPYRIGHT, DESCRIPTION,
     __version__, runtime_text, version_string,
 )

@@ -13,9 +13,9 @@
 
 为什么第 4 步必须在第 2、3 步之后：Setup.exe 是把整个 dist/ClipboardHistory
 目录嵌进去的，卸载器不在里面的话，装出来的程序就没有独立卸载器
-（core/installer.py 会退回「主程序 --uninstall」的老流程）。
+（src/installer.py 会退回「主程序 --uninstall」的老流程）。
 
-改了 core/version.py 的版本号或 spec 里的 uac_admin 之后必须加 --clean：
+改了 src/version.py 的版本号或 spec 里的 uac_admin 之后必须加 --clean：
 PyInstaller 的缓存不认这两个改动（历史上出现过「改了没生效」）。
 """
 from __future__ import annotations

@@ -1,4 +1,4 @@
-# core/clipboard_listener.py
+# src/clipboard_listener.py
 from __future__ import annotations
 
 import threading

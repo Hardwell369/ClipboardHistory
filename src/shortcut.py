@@ -1,4 +1,4 @@
-# core/shortcut.py
+# src/shortcut.py
 """
 Windows 快捷方式（.lnk）的创建与删除。
 
@@ -19,7 +19,7 @@ import base64
 import os
 import subprocess
 
-from core import applog
+from src import applog
 
 CREATE_NO_WINDOW = 0x08000000
 PS_TIMEOUT_S = 60

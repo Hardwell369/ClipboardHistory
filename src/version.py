@@ -1,4 +1,4 @@
-# core/version.py
+# src/version.py
 """
 版本与产品信息。
 

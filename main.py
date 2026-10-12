@@ -12,16 +12,16 @@ from PySide6.QtCore import Qt, QObject, QPoint, QProcess, QTimer, QUrl
 from PySide6.QtGui import QDesktopServices, QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
-from core import applog
-from core.settings import Settings, default_settings_path
-from core.single_instance import SingleInstance, notify_existing_instance
-from core.storage import Storage, StorageLockedError
-from core import capture as capture_mod
-from core.capture import capture_once
-from core.clipboard_listener import ClipboardListener
-from core.hotkey import HotkeyManager
-from core.paths import app_root, resource
-from core.version import APP_NAME, APP_NAME_EN, ORG_NAME, __version__
+from src import applog
+from src.settings import Settings, default_settings_path
+from src.single_instance import SingleInstance, notify_existing_instance
+from src.storage import Storage, StorageLockedError
+from src import capture as capture_mod
+from src.capture import capture_once
+from src.clipboard_listener import ClipboardListener
+from src.hotkey import HotkeyManager
+from src.paths import app_root, resource
+from src.version import APP_NAME, APP_NAME_EN, ORG_NAME, __version__
 
 from ui.about_dialog import AboutDialog
 from ui.main_window import MainWindow, EDGE_SNAP_THRESHOLD
@@ -343,11 +343,11 @@ class AppController(QObject):
         打包版走「登录时 + 最高权限」的计划任务：exe 清单里要求管理员权限，
         Run 键拉起的进程不带提权，安全软件又会拦非提权进程，自启起来等于残废。
         源码运行仍然用 Run 键（python.exe 不挑权限）。
-        细节见 core/autostart.py。
+        细节见 src/autostart.py。
         """
         enable = bool(self.settings.get("auto_start", False))
         try:
-            from core.autostart import apply as apply_autostart
+            from src.autostart import apply as apply_autostart
             detail = apply_autostart(enable)
             applog.get("app").info("开机自启设置：%s（%s）",
                                    "开启" if enable else "关闭", detail)
@@ -649,7 +649,7 @@ class AppController(QObject):
 def _elevated_text() -> str:
     """日志里用：当前进程是不是管理员权限（打包版清单要求提权，用于核对）"""
     try:
-        from core.autostart import is_elevated
+        from src.autostart import is_elevated
         return "是" if is_elevated() else "否"
     except Exception:                           # noqa: BLE001
         return "?"
@@ -708,13 +708,13 @@ def main() -> int:
 
     # ---- 自检模式：ClipboardHistory.exe --diag ----
     # 只做检查（含托盘实测），不建主窗口、不碰监听，报告落盘并弹窗
-    from core.diag import run_diag, wants_diag
+    from src.diag import run_diag, wants_diag
     if wants_diag(sys.argv):
         return run_diag()
 
     # ---- 卸载模式：必须在 QApplication 之前处理 ----
     # 这两条分支会在建窗口/开数据库之前退出，卸载时不会因为占着文件而删不掉。
-    from core.uninstall import (
+    from src.uninstall import (
         find_uninstaller, parse_uninstall_args, run_uninstall_now,
         run_uninstall_ui, wants_uninstall, wants_uninstall_now,
     )
@@ -742,7 +742,7 @@ def main() -> int:
         return run_installer_ui(sys.argv)
 
     app = QApplication(sys.argv)
-    # 版本号 / 组织名统一从 core/version.py 取（关于框也是同一份数据）
+    # 版本号 / 组织名统一从 src/version.py 取（关于框也是同一份数据）
     app.setApplicationName(APP_NAME_EN)
     app.setApplicationDisplayName(APP_NAME)
     app.setOrganizationName(ORG_NAME)

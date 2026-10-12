@@ -77,11 +77,11 @@ hiddenimports = [
     "sqlite3",
     # 这几个是在函数体里 import 的（按需延迟导入），显式列出更保险
     "ui.uninstall_tk",
-    "core.uninstall",
-    "core.data_clean",
-    "core.lockfile",
-    "core.autostart",
-    "core.shortcut",
+    "src.uninstall",
+    "src.data_clean",
+    "src.lockfile",
+    "src.autostart",
+    "src.shortcut",
 ]
 
 a = Analysis(

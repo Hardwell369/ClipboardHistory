@@ -1,4 +1,4 @@
-# core/installer.py
+# src/installer.py
 """
 安装器核心逻辑（不含界面）。
 
@@ -25,14 +25,14 @@ import time
 import winreg
 from dataclasses import dataclass, field
 
-from core import applog
-from core.settings import Settings, default_settings_path
-from core.version import (
+from src import applog
+from src.settings import Settings, default_settings_path
+from src.version import (
     APP_NAME, APP_NAME_EN, AUTHOR, AUTHOR_EMAIL, __version__,
 )
 
-# install.json / 卸载项与 core/uninstall.py 共用同一份定义（免得两边不一致）
-from core.uninstall import INSTALL_INFO_FILE, UNINSTALLER_EXE_NAME, uninstall_key
+# install.json / 卸载项与 src/uninstall.py 共用同一份定义（免得两边不一致）
+from src.uninstall import INSTALL_INFO_FILE, UNINSTALLER_EXE_NAME, uninstall_key
 
 EXE_NAME = "ClipboardHistory.exe"
 SETUP_EXE_NAME = "ClipboardHistory-Setup.exe"
@@ -168,7 +168,7 @@ def default_install_dir() -> str:
     if previous and os.path.isdir(previous):
         return previous
 
-    from core.autostart import is_elevated
+    from src.autostart import is_elevated
     if is_elevated():
         base = os.environ.get("ProgramFiles") or r"C:\Program Files"
     else:
@@ -231,7 +231,7 @@ def existing_install() -> dict:
     """已安装信息：注册表优先，其次 exe 旁边的 install.json（绿色版）"""
     info: dict = {}
     try:
-        from core.uninstall import load_install_info
+        from src.uninstall import load_install_info
         info.update({k: v for k, v in load_install_info().items() if v})
     except Exception:                           # noqa: BLE001 - 读不到就当没装过
         pass
@@ -373,13 +373,13 @@ def _write_settings(options: InstallOptions, result: InstallResult,
 
 def _write_install_info(options: InstallOptions, result: InstallResult,
                         progress=None) -> None:
-    """写 install.json：卸载程序按它删干净（键名与 core/uninstall.py 对齐）"""
+    """写 install.json：卸载程序按它删干净（键名与 src/uninstall.py 对齐）"""
     import json
 
     if progress is not None:
         progress(88, "正在写入安装信息…")
 
-    from core.autostart import RUN_VALUE, TASK_NAME
+    from src.autostart import RUN_VALUE, TASK_NAME
     info = {
         "app_name": APP_NAME,
         "app_name_en": APP_NAME_EN,
@@ -414,7 +414,7 @@ def _write_install_info(options: InstallOptions, result: InstallResult,
 # ---------------------------------------------------------
 def _make_shortcuts(options: InstallOptions, result: InstallResult,
                     progress=None) -> None:
-    from core.shortcut import (
+    from src.shortcut import (
         create_shortcut, default_desktop_dir, default_start_menu_dir,
     )
 
@@ -451,7 +451,7 @@ def _register_uninstall(options: InstallOptions, result: InstallResult,
     """
     写 HKCU\\...\\Uninstall\\ClipboardHistory。
 
-    用 HKCU 而不是 HKLM：core/uninstall.py 删的就是 HKCU 这一份，
+    用 HKCU 而不是 HKLM：src/uninstall.py 删的就是 HKCU 这一份，
     两边必须一致；而且 HKCU 的卸载项会显示在当前用户的
     「设置 -> 应用 -> 已安装的应用」里，按用户安装/卸载更符合本程序的使用方式。
 
@@ -524,10 +524,10 @@ def _apply_auto_start(options: InstallOptions, result: InstallResult,
     if progress is not None:
         progress(96, "正在设置开机自启…")
 
-    from core.autostart import apply as apply_autostart
+    from src.autostart import apply as apply_autostart
     try:
         # 安装器统一用「登录时 + 最高权限」的计划任务：安装后的 exe 需要管理员权限，
-        # Run 键拉起的进程没有提权，会被安全软件拦成残废实例（详见 core/autostart.py）
+        # Run 键拉起的进程没有提权，会被安全软件拦成残废实例（详见 src/autostart.py）
         detail = apply_autostart(bool(options.auto_start), prefer_task=True,
                                  program=result.exe_path)
         result.auto_start_detail = detail
@@ -685,7 +685,7 @@ def parse_silent_args(argv: list[str]) -> InstallOptions:
     没给 --dir 时用默认安装目录（有管理员权限 = Program Files）；
     没给 --data-dir 时数据目录 = <安装目录>\\data。
     """
-    from core.settings import DEFAULT_SETTINGS
+    from src.settings import DEFAULT_SETTINGS
 
     args: dict[str, str] = {}
     flags: set[str] = set()

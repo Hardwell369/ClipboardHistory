@@ -13,12 +13,12 @@ PyInstaller 打包配置。
     python build/build_all.py
 （卸载器、安装程序是另外两个 spec：build/uninstaller.spec、build/installer.spec）
 
-关于资源路径：应用通过 core/paths.py 的 resource() 取资源，
+关于资源路径：应用通过 src/paths.py 的 resource() 取资源，
 打包后指向 sys._MEIPASS，所以下面的 datas 必须保持
     assets/...        和        ui/style.qss
 这样的相对结构，否则打包后图标、样式会找不到。
 
-关于版本号：版本号只在 core/version.py 里写一次。打包时这里会自动调用
+关于版本号：版本号只在 src/version.py 里写一次。打包时这里会自动调用
 build/make_version_info.py 生成 version_info.txt，写进 exe 的
 「属性 -> 详细信息」，所以关于框和 exe 属性永远对得上。
 """
@@ -103,7 +103,7 @@ exe = EXE(
     # 安全软件会把「未签名的普通权限 exe」当不可信程序限制——实测非提权运行时
     # %APPDATA% 写入、HKCU\Run 写入、启动 explorer.exe、托盘图标全部被拦；
     # 以管理员身份运行则一切正常。代价：每次启动一次 UAC 提示，
-    # 且开机自启必须走「最高权限计划任务」（见 core/autostart.py）。
+    # 且开机自启必须走「最高权限计划任务」（见 src/autostart.py）。
     # 如果以后做了代码签名 / 加了杀软白名单，可以把这行改回 False。
     uac_admin=True,
 )

@@ -1,4 +1,4 @@
-# core/applog.py
+# src/applog.py
 """
 统一日志。
 
@@ -13,7 +13,7 @@
 - 可用环境变量 CLIPBOARD_LOG_FILE 指定日志文件（排查 / 自动化测试用）
 
 用法：
-    from core import applog
+    from src import applog
     applog.setup()                      # 入口处调一次
     applog.get("tray").warning("...")   # 各模块按名字取 logger
 """

@@ -1,4 +1,4 @@
-# core/autostart.py
+# src/autostart.py
 """
 开机自启。
 
@@ -22,7 +22,7 @@ import subprocess
 import sys
 import winreg
 
-from core import applog
+from src import applog
 
 TASK_NAME = "ClipboardHistory"
 RUN_VALUE = "ClipboardHistory"

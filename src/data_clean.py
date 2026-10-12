@@ -1,4 +1,4 @@
-# core/data_clean.py
+# src/data_clean.py
 """
 卸载时的数据清理：按类型统计并删除本机保存的**文本、图片、文件**。
 
@@ -8,7 +8,7 @@
 2. 「删什么」必须是可勾选、可统计、可解释的——用户有权只删文本、留下图片，
    所以先统计（inspect）再删除（delete），并把删了多少、释放了多少写进结果。
 
-存储结构（见 core/storage.py）：
+存储结构（见 src/storage.py）：
     <数据目录>/
         history.db          items 表：type = text / html / image / files / ...
         files/              图片、大文本、文件快照等 blob
@@ -196,7 +196,7 @@ def settings_storage_dir(settings_path: str = "") -> str:
     """
     读 settings.json 里的存储路径（**只读，不会创建配置**）。
 
-    注意不能用 core.settings.Settings：它在文件不存在时会顺手写一份出来，
+    注意不能用 src.settings.Settings：它在文件不存在时会顺手写一份出来，
     卸载流程里绝对不能在用户机器上凭空造出配置目录。
     """
     path = settings_path or os.path.join(default_settings_dir(), "settings.json")
@@ -542,7 +542,7 @@ def summarize(results: list[DeleteDirResult]) -> str:
 
 
 # ---------------------------------------------------------
-# 自测：python -m core.data_clean
+# 自测：python -m src.data_clean
 # ---------------------------------------------------------
 if __name__ == "__main__":
     import tempfile

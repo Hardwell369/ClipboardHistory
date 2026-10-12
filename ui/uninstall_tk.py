@@ -9,7 +9,7 @@
 界面分两段，对应两个进程：
 1. ask_choices()       安装目录里的 uninstaller.exe 跑：问用户删什么（带条数/体积）
 2. run_with_progress() 复制到 TEMP 的副本跑：显示进度与结果
-   （必须换进程的原因见 core/uninstall.py：正在运行的 exe 删不掉自己）
+   （必须换进程的原因见 src/uninstall.py：正在运行的 exe 删不掉自己）
 
 两个容易踩的坑（都踩过，所以写在这里）：
 - **窗口尺寸不能写死**：高 DPI（150%/200%）下 tk 的 scaling 会让字体大一倍，
@@ -29,8 +29,8 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Callable
 
-from core.data_clean import CATEGORY_KEYS, DirStat, format_size
-from core.version import APP_NAME
+from src.data_clean import CATEGORY_KEYS, DirStat, format_size
+from src.version import APP_NAME
 
 APP_TITLE = f"卸载 {APP_NAME}"        # 与 uninstaller.py 的 TITLE 保持一致
 FONT_FAMILY = "Microsoft YaHei UI"
@@ -182,7 +182,7 @@ def _copy_to_clipboard(root: tk.Tk, content: str, button: ttk.Button) -> None:
 
 
 def _categories():
-    from core.data_clean import CATEGORIES
+    from src.data_clean import CATEGORIES
     return CATEGORIES
 
 
