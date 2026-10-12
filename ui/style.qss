@@ -1,0 +1,224 @@
+/* 主容器：圆角、Win11 风格浅色 */
+QFrame#MainContainer {
+    background: #F3F3F3;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+}
+
+QLabel#TitleLabel {
+    color: #202020;
+    font-size: 12px;
+    padding-left: 6px;
+}
+
+QPushButton#TitleButton {
+    border: none;
+    border-radius: 6px;
+    color: #404040;
+    background: transparent;
+}
+QPushButton#TitleButton:hover {
+    background: #E5E5E5;
+}
+QPushButton#TitleButton:pressed {
+    background: #D6D6D6;
+}
+
+/* 单条卡片 */
+QFrame#ItemCard {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+}
+QFrame#ItemCard:hover {
+    background: #F0F6FF;
+    border: 1px solid #C9DDF7;
+}
+
+QLabel#ItemThumb {
+    background: #EFEFEF;
+    border-radius: 6px;
+    color: #707070;
+    font-size: 18px;
+    font-weight: 600;
+}
+/* 类型图标自带底色，不再叠加灰底 */
+QLabel#ItemThumb[thumbKind="icon"] {
+    background: transparent;
+}
+
+QLabel#ItemPreview {
+    color: #202020;
+    font-size: 12px;
+}
+QLabel#ItemType {
+    color: #909090;
+    font-size: 10px;
+}
+
+QLabel#EmptyLabel {
+    color: #909090;
+    font-size: 12px;
+    padding: 20px;
+}
+
+/* ============ 独立的全部历史窗口 ============ */
+QWidget#HistoryWindow {
+    background: #F3F3F3;
+}
+
+QLabel#HistoryTitle {
+    color: #202020;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 4px;
+}
+QLabel#HistoryCount {
+    color: #909090;
+    font-size: 12px;
+}
+
+QLineEdit#HistorySearch {
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: #202020;
+    font-size: 12px;
+}
+QLineEdit#HistorySearch:focus {
+    border: 1px solid #7FB0E8;
+}
+
+QPushButton#HistoryToolButton,
+QPushButton#HistoryToolButtonDanger {
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+    padding: 4px 12px;
+    color: #404040;
+    font-size: 12px;
+}
+QPushButton#HistoryToolButton:hover {
+    background: #EAF2FE;
+    border: 1px solid #9CC3F0;
+    color: #1667C4;
+}
+QPushButton#HistoryToolButtonDanger:hover {
+    background: #FDECEC;
+    border: 1px solid #EFA3A3;
+    color: #C0392B;
+}
+
+QScrollArea#HistoryScroll {
+    border: none;
+    background: transparent;
+}
+QScrollArea#HistoryScroll > QWidget > QWidget {
+    background: transparent;
+}
+QWidget#HistoryList {
+    background: transparent;
+}
+
+QFrame#HistoryCard {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+}
+QFrame#HistoryCard:hover {
+    background: #FAFCFF;
+    border: 1px solid #C9DDF7;
+}
+
+QLabel#HistoryContent {
+    color: #202020;
+    font-size: 12px;
+}
+QLabel#HistoryMeta {
+    color: #909090;
+    font-size: 11px;
+}
+QLabel#HistoryEmpty {
+    color: #909090;
+    font-size: 12px;
+    padding: 40px;
+}
+
+QPushButton#HistoryButton,
+QPushButton#HistoryButtonDanger {
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    padding: 1px 10px;
+    color: #404040;
+    font-size: 11px;
+}
+QPushButton#HistoryButton:hover {
+    background: #EAF2FE;
+    border: 1px solid #9CC3F0;
+    color: #1667C4;
+}
+QPushButton#HistoryButtonDanger:hover {
+    background: #FDECEC;
+    border: 1px solid #EFA3A3;
+    color: #C0392B;
+}
+
+/* 文本查看/修改对话框里的编辑框 */
+QPlainTextEdit#TextEditor {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    color: #202020;
+    font-size: 12px;
+}
+
+/* ============ 关于对话框 ============ */
+QLabel#AboutIcon {
+    background: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    border-radius: 8px;
+}
+QLabel#AboutTitle {
+    color: #202020;
+    font-size: 14px;
+    font-weight: 600;
+}
+QLabel#AboutVersion {
+    color: #1667C4;
+    font-size: 12px;
+}
+QLabel#AboutDesc {
+    color: #707070;
+    font-size: 11px;
+}
+QLabel#AboutMeta {
+    color: #404040;
+    font-size: 11px;
+}
+QFrame#AboutSeparator {
+    color: #E4E4E4;
+}
+
+/* 滚动条 */
+QScrollBar:vertical {
+    background: transparent;
+    width: 8px;
+    margin: 0;
+}
+QScrollBar::handle:vertical {
+    background: #C8C8C8;
+    border-radius: 4px;
+    min-height: 24px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #A8A8A8;
+}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical,
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: transparent;
+    height: 0;
+}

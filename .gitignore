@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# PyInstaller（build/*.spec 本身要提交，忽略的是它的产物）
+build/build/
+build/installer/
+build/uninstaller/
+build/dist/
+dist/
+build/version_info.txt        # 打包时由 build/make_version_info.py 生成
+
+# 运行时产物：存储目录（默认数据目录；也可以放到别处）、临时校验目录
+data/
+.tmp_out/
+*.tmp
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

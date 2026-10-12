@@ -1,0 +1,3 @@
+PySide6>=6.5
+pywin32>=306
+pynput>=1.7
